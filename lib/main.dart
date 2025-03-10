@@ -39,17 +39,61 @@ class Application extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 32),
-                numpadItems('AC', '+/-', '%', '/'),
-                SizedBox(height: 10),
-                numpadItems('7', '8', '9', '*'),
-                SizedBox(height: 10),
-                numpadItems('4', '5', '6', '-'),
-                SizedBox(height: 5),
-                numpadItems('1', '2', '3', '+'),
-                SizedBox(height: 5),
-                numpadItems('C', '0', '.', '='),
-                SizedBox(height: 40),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          SizedBox(height: 32),
+                          NumpadItems('AC', '/', '%'),
+                          SizedBox(height: 10),
+                          NumpadItems('7', '8', '9'),
+                          SizedBox(height: 10),
+                          NumpadItems('4', '5', '6'),
+                          SizedBox(height: 10),
+                          NumpadItems('1', '2', '3'),
+                          SizedBox(height: 10),
+                          NumpadItems('C', '0', '.'),
+                          SizedBox(height: 40),
+                        ],
+                      ),
+                    ),
+
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              '*',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              minimumSize: Size(80, 80),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+
+                          GetSingleItem('+'),
+                          SizedBox(height: 20),
+
+                          GetSingleItem('='),
+                          SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -58,16 +102,8 @@ class Application extends StatelessWidget {
     );
   }
 
-  Widget numpadItems(
-    String numpadText1,
-    String numpadText2,
-    String numpadText3,
-    String numpadText4,
-  ) {
+  NumpadItems(String numpadText1, String numpadText2, String numpadText3) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ElevatedButton(
           onPressed: () {},
@@ -84,6 +120,7 @@ class Application extends StatelessWidget {
             minimumSize: Size(80, 80),
           ),
         ),
+        SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {},
           child: Text(
@@ -99,6 +136,8 @@ class Application extends StatelessWidget {
             minimumSize: Size(80, 80),
           ),
         ),
+        SizedBox(width: 10),
+
         ElevatedButton(
           onPressed: () {},
           child: Text(
@@ -114,27 +153,25 @@ class Application extends StatelessWidget {
             minimumSize: Size(80, 80),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {},
-
-          child: Text(
-            numpadText4,
-            style: TextStyle(
-              fontSize: 20,
-              color: Colors.blue,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            minimumSize:
-                (numpadText4 == "=" || numpadText4 == "+")
-                    ? Size(80, 110)
-                    : Size(80, 80),
-          ),
-        ),
       ],
+    );
+  }
+
+  Widget GetSingleItem(String itemText) {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Text(
+        itemText,
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.blue,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white,
+        minimumSize: Size(80, 160),
+      ),
     );
   }
 }

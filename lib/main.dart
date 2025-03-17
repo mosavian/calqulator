@@ -119,8 +119,8 @@ class _ApplicationState extends State<Application> {
                 SizedBox(height: 20),
                 ListTile(
                   leading: Icon(Icons.info, color: Colors.blue),
-                  title: Text("This is a ListTile"),
-                  subtitle: Text("You can add description here"),
+                  title: Text("ListTile"),
+                  subtitle: Text("description"),
                   onTap: () {},
                 ),
                 Row(

@@ -12,8 +12,8 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
-  bool _isChecked = false;
-  bool _isSwitched = false;
+  bool isChecked = false;
+  bool isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class _ApplicationState extends State<Application> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              print("Tapped * button");
+                              print("Tapped *");
                             },
                             child: Container(
                               padding: EdgeInsets.all(20),
@@ -127,18 +127,18 @@ class _ApplicationState extends State<Application> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Checkbox(
-                      value: _isChecked,
+                      value: isChecked,
                       onChanged: (bool? value) {
                         setState(() {
-                          _isChecked = value!;
+                          isChecked = value!;
                         });
                       },
                     ),
                     Switch(
-                      value: _isSwitched,
+                      value: isSwitched,
                       onChanged: (bool value) {
                         setState(() {
-                          _isSwitched = value;
+                          isSwitched = value;
                         });
                       },
                     ),

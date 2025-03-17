@@ -4,13 +4,25 @@ void main() {
   runApp(const Application());
 }
 
-class Application extends StatelessWidget {
+class Application extends StatefulWidget {
   const Application({super.key});
+
+  @override
+  State<Application> createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
+  bool _isChecked = false;
+  bool _isSwitched = false;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 44),
@@ -40,7 +52,6 @@ class Application extends StatelessWidget {
                   ),
                 ),
                 Row(
-                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(
@@ -48,7 +59,7 @@ class Application extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox(height: 32),
-                          NumpadItems('AC', '/', '%'),
+                          NumpadItems('AC', '/', '-'),
                           SizedBox(height: 10),
                           NumpadItems('7', '8', '9'),
                           SizedBox(height: 10),
@@ -61,36 +72,75 @@ class Application extends StatelessWidget {
                         ],
                       ),
                     ),
-
                     Expanded(
                       flex: 1,
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text(
-                              '*',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.blue,
-                                fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () {
+                              print("Tapped * button");
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.blue),
                               ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              minimumSize: Size(80, 80),
+                              child: Text(
+                                '*',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 20),
-
                           GetSingleItem('+'),
                           SizedBox(height: 20),
-
                           GetSingleItem('='),
                           SizedBox(height: 10),
                         ],
                       ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(onPressed: () {}, child: Text("TextButton")),
+                    OutlinedButton(onPressed: () {}, child: Text("Outlined")),
+                    IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+                  ],
+                ),
+                SizedBox(height: 20),
+                ListTile(
+                  leading: Icon(Icons.info, color: Colors.blue),
+                  title: Text("This is a ListTile"),
+                  subtitle: Text("You can add description here"),
+                  onTap: () {},
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Checkbox(
+                      value: _isChecked,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _isChecked = value!;
+                        });
+                      },
+                    ),
+                    Switch(
+                      value: _isSwitched,
+                      onChanged: (bool value) {
+                        setState(() {
+                          _isSwitched = value;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -105,23 +155,31 @@ class Application extends StatelessWidget {
   NumpadItems(String numpadText1, String numpadText2, String numpadText3) {
     return Row(
       children: [
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(
-            numpadText1,
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.blue,
-              fontWeight: FontWeight.bold,
+        InkWell(
+          onTap: () {
+            print("Tapped $numpadText1");
+          },
+          child: Container(
+            alignment: Alignment.center,
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: Colors.blue),
             ),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            minimumSize: Size(80, 80),
+            child: Text(
+              numpadText1,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         ),
         SizedBox(width: 10),
-        ElevatedButton(
+        OutlinedButton(
           onPressed: () {},
           child: Text(
             numpadText2,
@@ -131,13 +189,8 @@ class Application extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            minimumSize: Size(80, 80),
-          ),
         ),
         SizedBox(width: 10),
-
         ElevatedButton(
           onPressed: () {},
           child: Text(
@@ -158,19 +211,27 @@ class Application extends StatelessWidget {
   }
 
   Widget GetSingleItem(String itemText) {
-    return ElevatedButton(
-      onPressed: () {},
-      child: Text(
-        itemText,
-        style: TextStyle(
-          fontSize: 20,
-          color: Colors.blue,
-          fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: () {
+        print("Tapped $itemText");
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 80,
+        height: 160,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.blue),
         ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        minimumSize: Size(80, 160),
+        child: Text(
+          itemText,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.blue,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }
